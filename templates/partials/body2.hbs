@@ -1,0 +1,81 @@
+
+  <head>
+    <!-- Design by foolishdeveloper.com -->
+    <title>Sign Up</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="../../public/css/style.css" />
+  </head>
+  <body>
+    <div class="background">
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+    <form id="login">
+      <h3>Login Here</h3>
+
+      <label for="username">Username</label>
+      <input
+        type="text"
+        autocomplete="off"
+        name="username"
+        placeholder="Enter Your Username or Email"
+        id="username"
+      />
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        autocomplete="off"
+        placeholder="Password"
+        id="password"
+      />
+
+      {{!-- <input type="submit" value="Login" /> --}}
+      <button ><a style="color: #141414;"type="submit" value="login" >Login</a> </button>
+      <a href="/register"> New User? Click to Register</a>
+<button><a href="/change-password" style="color: #141414;">Reset Password</a></button>
+    </form>
+
+    <script>
+    const form = document.getElementById('login')
+			form.addEventListener('submit', login)
+
+			async function login(event) {
+				event.preventDefault()
+				const username = document.getElementById('username').value
+				const password = document.getElementById('password').value
+
+				const result = await fetch('/api/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						username,
+						password
+					})
+				}).then((res) => res.json())
+
+				if (result.status === 'ok') {
+					// everythign went fine
+					console.log('Got the token: ', result.data)
+					localStorage.setItem('token', result.data)
+          window.open("/details");
+					alert('Success')
+				} else {
+					alert(result.error)
+				}
+			}
+    </script>
+  </body>
+</html>

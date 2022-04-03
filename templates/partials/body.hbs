@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <title>Sign Up</title>
+ 
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet"> 
+    <!--Stylesheet-->
+   <link rel="stylesheet" href="../../public/css/style.css">
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form  id="reg-form">
+        <h3>Register Here</h3>
+        
+
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="Enter Your Username " id="username" required> 
+		
+		{{!-- <label for="email">Username</label>
+        <input type="email" name="email" placeholder="Enter Your Email" id="email"> --}}
+
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Password" id="password" required autocomplete="off">
+
+        <input type="submit" value="Register">
+        <button ><a href="/login" style="color: #141414;">Existing User? Click to Login</a> </button>
+        <button ><a href="/change-password" style="color: #141414;">Reset Password</a> </button>
+        
+    </form>
+    </form>
+</body>
+
+
+<script>
+			const form = document.getElementById('reg-form')
+			form.addEventListener('submit', registerUser)
+
+			async function registerUser(event) {
+				event.preventDefault()
+				const username = document.getElementById('username').value
+				const password = document.getElementById('password').value
+
+				const result = await fetch('/api/register', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						username,
+						password
+					})
+				}).then((res) => res.json())
+
+				if (result.status === 'ok') {
+					// everythign went fine
+					alert('Success')
+				} else {
+					alert(result.error)
+				}
+			}
+		</script>
+</html>
+

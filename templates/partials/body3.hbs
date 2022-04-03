@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <title>Reset Password</title>
+ 
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet"> 
+    <!--Stylesheet-->
+   <link rel="stylesheet" href="../../public/css/style.css">
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form  id="reg-form">
+        <h3>Reset Password Here</h3>
+        
+
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="Enter Your Username or Email" id="username" required>
+
+        <label for="password">Old Password</label>
+        <input  placeholder="Password" required>
+        
+        <label for="password">New Password</label>
+        <input type="password" type="password" autocomplete="off" name="password" placeholder="Password" id="password" required>
+
+        <input type="submit" value="Submit">
+        <a href="/Login"> Login </a>
+        
+        
+    </form>
+    </form>
+</body>
+
+
+<script>
+			const form = document.getElementById('reg-form')
+			form.addEventListener('submit', registerUser)
+
+			async function registerUser(event) {
+				event.preventDefault()
+				const password = document.getElementById('password').value
+
+				const result = await fetch('/api/change-password', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						newpassword: password,
+						token: localStorage.getItem('token')
+					})
+				}).then((res) => res.json())
+
+				if (result.status === 'ok') {
+					// everythign went fine
+					alert('Success')
+				} else {
+					alert(result.error)
+				}
+			}
+		</script>
+</html>
+
