@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 let app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT||5000;
 const path = require("path");
 const hbs = require("hbs");
 const mongoose = require("mongoose");
@@ -193,7 +193,7 @@ app.post("/api/register", async (req, res) => {
   res.json({ status: "ok" });
 });
 
-const server = app.listen(process.env.PORT || 5000, () => {
-  const port = server.address().port;
+app.listen(port,this.address().port, app.settings.env, () => {
+  
   console.log(`Express is working on port ${port}`);
 });
