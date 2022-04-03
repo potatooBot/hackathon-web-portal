@@ -41,7 +41,7 @@
       />
 
       {{!-- <input type="submit" value="Login" /> --}}
-      <button ><a style="color: #141414;"type="submit" value="login" >Login</a> </button>
+      <button onclick="opn()"><a style="color: #141414;"type="submit" value="login" >Login</a> </button>
       <a href="/register"> New User? Click to Register</a>
 <button><a href="/change-password" style="color: #141414;">Reset Password</a></button>
     </form>
@@ -70,7 +70,9 @@
 					// everythign went fine
 					console.log('Got the token: ', result.data)
 					localStorage.setItem('token', result.data)
-          window.open("/details");
+         
+           window.open("/details");
+         
 					alert('Success')
 				} else {
 					alert(result.error)
