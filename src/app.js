@@ -193,7 +193,7 @@ app.post("/api/register", async (req, res) => {
   res.json({ status: "ok" });
 });
 
-app.listen(port,this.address().port, app.settings.env, () => {
+app.listen(port, () => {
   
   console.log(`Express is working on port ${port}`);
 });
