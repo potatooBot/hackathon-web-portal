@@ -1,15 +1,15 @@
 const express = require("express");
 const session = require("express-session");
-let app = express();
+const app = express();
 const port = process.env.PORT||5000;
 const path = require("path");
 const hbs = require("hbs");
 const mongoose = require("mongoose");
-var passport = require("passport");
+
 const User = require("./model/user");
-const bodyParser = require("body-parser");
+
 const jwt = require('jsonwebtoken')
-const localStrategy = require("passport-local").Strategy;
+
 const bcrypt = require("bcrypt");
 
 const JWT_SECRET="jkadkadkfgaksgsafksakfgkhsaf%76gbfvhavgdnndfhadf";
@@ -29,37 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 //Passport
-app.use(passport.initialize());
-app.use(passport.session());
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
-passport.deserializeUser(function (id, done) {
-  //Setup User Model
 
-  User.findById(id, function (id, done) {
-    done(err, user);
-  });
-});
-
-passport.use(
-  new localStrategy(function (username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false, { message: "Incorrect Username" });
-      }
-      bcrypt.compare(password, user.password, function (err, res) {
-        if (err) return done(err);
-        if (res === false)
-          return done(null, false, { message: "Incorrect Password" });
-        return done(null, user);
-      });
-    });
-  })
-);
 
 const staticPath = path.join(__dirname, "../public");
 const template_path = path.join(__dirname, "../templates/views");
